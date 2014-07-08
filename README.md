@@ -2,10 +2,7 @@
 
 Particle system for Grape game engine
 
-## Try
-
-- Download and unzip https://github.com/zoltan-mihalyi/grape-particles/archive/master.zip
-- Run example.html
+Take a look at http://zoltan-mihalyi.github.io/grape-particles
 
 ## Use
 
@@ -67,15 +64,17 @@ var MyScene = Grape.Scene.extend({
 
 ### Create emitters
 
-Particles are emitted from emitters.
+Particles are emitted from emitters. Emitter properties can be changed.
 
 ```javascript
 particleSystem.createEmitter({
    x: 10,
    y: 20,
-   shape: 'ellipse', //only ellipse is supported yet
+   shape: 'ellipse', //ellipse, point, rectangle
    width: 24,
    height: 16,
+   speedX: 0, //additional boost to the particle
+   speedY:0,
    duration: Infinity, //emitter is destroyed after duration expires
    rate: 6, //particles/second. If smaller than 0, like 0.2, it will emit particle every 5th frame.
    particle: flame //reference to the compiled particle
