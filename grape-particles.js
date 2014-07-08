@@ -189,6 +189,8 @@
             this.duration = opts.duration || Infinity;
             this.rate = opts.rate || 1;
             this.delayed = 0;
+            this.speedX = opts.speedX || 0;
+            this.speedY = opts.speedX || 0;
         },
         remove: function () {
             var moved = this._system.emitters.remove(this._index);
@@ -226,6 +228,8 @@
                     emitter.particle[0](particle); //init
                     particle[11] = emitter.x + pos[0] * emitter.width; //x
                     particle[12] = emitter.y + pos[1] * emitter.height; //y
+                    particle[3] += emitter.speedX;
+                    particle[4] += emitter.speedY;
                     particle.frame = emitter.particle[1];
                     particle.render = emitter.particle[2];
                     this.particles.push(particle);
@@ -270,6 +274,14 @@
         return [Math.cos(angle) * r / 2 + 0.5, Math.sin(angle) * r / 2 + 0.5];
     });
 
+    addEmitterShape('point', function () {
+        return [0, 0];
+    });
+
+    addEmitterShape('rectangle', function () {
+        return [Math.random(), Math.random()];
+    });
+
     addParticleShape('circle', function (ctx, x, y, size, color) {
         ctx.beginPath();
         ctx.fillStyle = color;
@@ -279,7 +291,7 @@
 
 
     addParticleShape('glow', function (ctx, x, y, size, color) {
-        var gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+        var gradient = ctx.createRadialGradient(x, y, 0, x, y, size / 2);
         gradient.addColorStop(0, color);
         gradient.addColorStop(1, 'rgba(' + (this[7] | 0) + ',' + (this[8] | 0) + ',' + (this[9] | 0) + ',0)');
 

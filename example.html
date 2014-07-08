@@ -14,295 +14,411 @@
 <script>
 
 
-    (function () {
-        var flame = Grape.Particles.particle('circle', [
-            {
-                offset: 0,
-                duration: [10, 30], //0 (1: max)
-                size: 0, //2
-                speed: [2, 4], //speedX:3, speedY:4
-                direction: [85, 95],
-                gravity: 0.05, //accX:5, accY:6
-                gravityDirection: 270,
-                r: 255, //7
-                g: 40, //8
-                b: 10, //9,
-                a: 0.5,
-                composite: 'lighter'
-            },
-            {
-                offset: 15,
-                size: [2,14]
-            },
-            {
-                offset: 70,
-                r: 255,
-                g: 165,
-                b: 30
-            },
-            {
-                offset: 100,
-                size: 1,
-                r: 90,
-                g: 90,
-                b: 90,
-                a: 0
-            }
-        ]);
+(function () {
+    var flame = Grape.Particles.particle('circle', [
+        {
+            offset: 0,
+            duration: [10, 30],
+            size: 0,
+            speed: [2, 4],
+            direction: [85, 95],
+            gravity: 0.05,
+            gravityDirection: 270,
+            r: 255,
+            g: 40,
+            b: 10,
+            a: 0.5,
+            composite: 'lighter'
+        },
+        {
+            offset: 15,
+            size: [2, 14]
+        },
+        {
+            offset: 70,
+            r: 255,
+            g: 165,
+            b: 30
+        },
+        {
+            offset: 100,
+            size: 1,
+            r: 90,
+            g: 90,
+            b: 90,
+            a: 0
+        }
+    ]);
 
 
-        var flame2 = Grape.Particles.particle('glow', [
-            {
-                offset: 0,
-                duration: [10, 30], //0 (1: max)
-                size: 0, //2
-                speed: [2, 4], //speedX:3, speedY:4
-                direction: [85, 95],
-                gravity: 0.05, //accX:5, accY:6
-                gravityDirection: 270,
-                r: 255, //7
-                g: 40, //8
-                b: 10, //9,
-                a: 0.7,
-                composite: 'lighter'
-            },
-            {
-                offset: 15,
-                size: [2,14]
-            },
-            {
-                offset: 70,
-                r: 255,
-                g: 165,
-                b: 30
-            },
-            {
-                offset: 100,
-                size: 1,
-                r: 90,
-                g: 90,
-                b: 90,
-                a: 0
-            }
-        ]);
+    var flame2 = Grape.Particles.particle('glow', [
+        {
+            offset: 0,
+            duration: [10, 30],
+            size: 0,
+            speed: [2, 4],
+            direction: [85, 95],
+            r: 255,
+            g: 40,
+            b: 10,
+            a: 0,
+            composite: 'lighter'
+        },
+        {
+            offset: 15,
+            size: [3, 20],
+            a: 0.7
+        },
+        {
+            offset: 70,
+            r: 255,
+            g: 165,
+            b: 30,
+            a: 0.6
+        },
+        {
+            offset: 100,
+            size: [0, 2],
+            r: 90,
+            g: 90,
+            b: 90,
+            a: 0
+        }
+    ]);
 
 
-        var fireworks = Grape.Particles.particle('glow', [
-            {
-                offset: 0,
-                duration: [10, 30], //0 (1: max)
-                size: 5, //2
-                speed: [2, 4], //speedX:3, speedY:4
-                direction: [0, 360],
-                gravity: 0.05, //accX:5, accY:6
-                gravityDirection: 270,
-                r: [0, 255], //7
-                g: [0, 255], //8
-                b: [0, 255] //9
-            },
-            {
-                offset: 100,
-                a: 0,
-                size: 1
-            }
-        ]);
+    var fireworks = Grape.Particles.particle('glow', [
+        {
+            offset: 0,
+            duration: [10, 30],
+            size: 8,
+            speed: [2, 4],
+            direction: [0, 360],
+            gravity: 0.05,
+            gravityDirection: 270,
+            r: [0, 255],
+            g: [0, 255],
+            b: [0, 255]
+        },
+        {
+            offset: 100,
+            a: 0,
+            size: 0
+        }
+    ]);
 
-        var waterfall = Grape.Particles.particle('glow', [
-            {
-                offset: 0,
-                duration: 30, //0 (1: max)
-                size: [0, 7], //2
-                speed: 2, //speedX:3, speedY:4
-                direction: [260, 280],
-                gravity: 0.05, //accX:5, accY:6
-                gravityDirection: 270,
-                r: 120, //7
-                g: 120, //8
-                b: 255,
-                a:0.1,
-                composite:'lighter'
-            },
-            {
-                offset: 80,
-                size: [0, 4],
-                a: 0.5
-            },
-            {
-                offset: 100,
-                a: 0.2
-            }
-        ]);
+    var water = Grape.Particles.particle('glow', [
+        {
+            offset: 0,
+            duration: 24,
+            size: [2, 12],
+            speed: [4,5],
+            direction: [-10, 10],
+            gravity: 0.35,
+            gravityDirection: 270,
+            r: 110,
+            g: 110,
+            b: 255,
+            a: 0.1,
+            composite: 'lighter'
+        },
+        {
+            offset: 80,
+            size: [2, 12],
+            a: 0.3
+        },
+        {
+            offset: 100,
+            a: 0.1
+        }
+    ]);
 
-        var snow = Grape.Particles.particle('circle', [
-            {
-                offset: 0,
-                duration: 30, //0 (1: max)
-                size: 2, //2
-                speed: 3, //speedX:3, speedY:4
-                direction: [270, 270],
-                gravity: 0.00, //accX:5, accY:6
-                gravityDirection: 270,
-                r: 255, //7
-                g: 255, //8
-                b: 255,
-                a:0.4
-            }
-        ]);
+    var snow = Grape.Particles.particle('circle', [
+        {
+            offset: 0,
+            duration: 100,
+            size: [1, 3],
+            speed: [0.8, 1.2],
+            direction: [270, 270],
+            gravity: 0.00,
+            gravityDirection: 270,
+            r: 255,
+            g: 255,
+            b: 255,
+            a: 0.4
+        }
+    ]);
 
-        var meteor = Grape.Particles.particle('glow', [
-            {
-                offset: 0,
-                duration: 30, //0 (1: max)
-                size: [4,10], //2
-                speed: 1.6, //speedX:3, speedY:4
-                direction: 45,
-                gravity: 0.05, //accX:5, accY:6
-                gravityDirection: 45,
-                r:80,
-                g:170,
-                b:0,
-                a:1,
-                composite:'lighter'
-            },
-            {
-                offset: 20,
-                r: 100, //7
-                g: 150, //8
-                b: 255,
-                a:0.2
-            },
-            {
-                offset: 100,
-                a:0
-            }
-        ]);
+    var meteor = Grape.Particles.particle('glow', [
+        {
+            offset: 0,
+            duration: 30,
+            size: [6, 14],
+            speed: 1.6,
+            direction: 45,
+            gravity: 0.05,
+            gravityDirection: 45,
+            r: 80,
+            g: 170,
+            b: 0,
+            a: 1,
+            composite: 'lighter'
+        },
+        {
+            offset: 20,
+            r: 100,
+            g: 150,
+            b: 255,
+            a: 0.2
+        },
+        {
+            offset: 100,
+            a: 0
+        }
+    ]);
 
-        var rainbow= Grape.Particles.particle('circle', [
-            {
-                offset: 0,
-                duration: 30,
-                size: [0,16],
-                speed:3.2,
-                direction: 45,
-                gravity:0.15,
-                gravityDirection:270,
-                r:255,
-                g:0,
-                b:0,
-                a:0.5,
-                composite:'lighter'
-            },
-            {
-                offset: 33,
-                r: 0,
-                g: 255,
-                b: 0
-            },
-            {
-                offset: 66,
-                r: 0,
-                g: 0,
-                b: 255
-            },
-            {
-                offset: 100,
-                r: 255,
-                g: 0,
-                b: 0
-            } ]);
+    var rainbow = Grape.Particles.particle('circle', [
+        {
+            offset: 0,
+            duration: 30,
+            size: [0, 16],
+            speed: 6.4,
+            direction: 45,
+            gravity: 0.3,
+            gravityDirection: 270,
+            r: 255,
+            g: 0,
+            b: 0,
+            a: 0.5,
+            composite: 'lighter'
+        },
+        {
+            offset: 33,
+            r: 0,
+            g: 255,
+            b: 0
+        },
+        {
+            offset: 66,
+            r: 0,
+            g: 0,
+            b: 255
+        },
+        {
+            offset: 100,
+            r: 255,
+            g: 0,
+            b: 0
+        }
+    ]);
 
-        var smoke= Grape.Particles.particle('glow', [
-            {
-                offset: 0,
-                size: [0,10],
-                duration:20,
-                speed:2.5,
-                direction: 70,
-                gravity:0.1,
-                gravityDirection:0,
-                r:190,
-                g:190,
-                b:190,
-                a:0.3
-            },{
-                offset:100,
-                a:0
-            }
-        ]);
+    var smoke = Grape.Particles.particle('glow', [
+        {
+            offset: 0,
+            size: [0, 10],
+            duration: 20,
+            speed: 2.5,
+            direction: 70,
+            gravity: 0.1,
+            gravityDirection: 0,
+            r: 190,
+            g: 190,
+            b: 190,
+            a: 0.3
+        },
+        {
+            offset: 100,
+            a: 0
+        }
+    ]);
 
-        var stars=Grape.Particles.particle('circle', [
-            {
-                offset:0,
-                duration:10,
-                size:0,
-                r:255,
-                g:255,
-                b:255,
-                speed:[4,8],
-                direction:[0,360]
-            },{
-                offset:100,
-                size:[1,6]
-            }
-        ]);
-
-        var particles = [flame, flame2, fireworks, waterfall, snow, meteor, rainbow, smoke, stars];
-
-        var Fire = Grape.Class([Grape.Position, Grape.GameObject], {
-            init: function (opts) {
-                this.particle = opts.particle;
-            },
-            'event add': function () {
-                this.emitter = this.getLayer().getSystem('particles').createEmitter({
-                    x: this.x,
-                    y: this.y + 48,
-                    shape: 'ellipse',
-                    width: 24,
-                    height: 16,
-                    duration: Infinity,
-                    rate: 6,
-                    particle: this.particle
-                });
-            },
-            'event remove': function () {
-                this.emitter.remove();
-            }
-        });
-
-        var MouseFire = Grape.Class(Fire, {
-            'global-event mouseMove': function (mouse) {
-                this.x = this.emitter.x = mouse.x;
-                this.y = this.emitter.y = mouse.y;
-            }
-        });
+    var stars = Grape.Particles.particle('circle', [
+        {
+            offset: 0,
+            duration: 20,
+            size: 0,
+            r: 255,
+            g: 255,
+            b: 255,
+            speed: [4, 8],
+            direction: [0, 360]
+        },
+        {
+            offset: 100,
+            size: [1, 6]
+        }
+    ]);
 
 
-        var Scene = Grape.Scene.extend({
-            init: function () {
-                this.addSystem('particles', new Grape.Particles.ParticleSystem());
-                var row = 0;
-                var col = 0;
-                for (var i = 0; i < particles.length; i++) {
-                    this.add(new Fire({x: col * 128 + 64, y: row * 128 + 64, particle: particles[i]}));
-                    col++;
-                    if (col > 3) {
-                        row++;
-                        col = 0;
-                    }
-                }
-                this.add(new MouseFire({x: 300, y: 200, particle: flame2}));
-                this.backgroundColor = '#333';
-                this.width = 1000;
-                this.height = 1000;
-            },
-            'event render': function (ctx) {
-                ctx.fillStyle = 'black';
-                ctx.fillText('Particles:' + this.getSystem('particles').particles.length, 20, 20);
-            }
-        });
+    var EllipseEmitter = {
+        x: this.x,
+        y: this.y + 48,
+        shape: 'ellipse',
+        width: 24,
+        height: 16,
+        duration: Infinity,
+        rate: 6
+    };
 
-        new Grape.Game({container: 'game'}).start(Scene);
-    })();
+    var CircleEmitter = {
+        x: this.x,
+        y: this.y + 48,
+        shape: 'ellipse',
+        width: 24,
+        height: 16,
+        duration: Infinity,
+        rate: 6
+    };
+
+    var PointEmitter = {
+        x: this.x,
+        y: this.y,
+        shape: 'point',
+        duration: Infinity,
+        rate: 6
+    };
+
+    var RectangleEmitter = {
+        x: this.x,
+        y: this.y,
+        width: 128,
+        height: 16,
+        shape: 'rectangle',
+        duration: Infinity,
+        rate: 6
+    };
+
+    var MouseFire = Grape.Class(EllipseEmitter, {
+        'global-event frame': function () {
+            var mouse = this.getGame().input.mouse;
+            this.x = this.emitter.x = mouse.x;
+            this.y = this.emitter.y = mouse.y;
+        }
+    });
+
+//    var particles = [
+//        {particles: flame, emitter: EllipseEmitter},
+//        {particles: flame2, emitter: EllipseEmitter},
+//        {particles: fireworks, emitter: PointEmitter},
+//        {particles: waterfall, emitter: RectangleEmitter},
+//        {particles: snow, emitter: RectangleEmitter},
+//        {particles: meteor, emitter: CircleEMitter},
+//        {particles: rainbow, emitter: CircleEMitter},
+//        {particles: smoke, emitter: CircleEMitter},
+//        {particles: stars, emitter: PointEmitter}
+//    ];
+
+    var DemoScene = Grape.Scene.extend({
+        init: function () {
+            var particleSystem = new Grape.Particles.ParticleSystem();
+            this.addSystem('particles', particleSystem);
+            this.backgroundColor = '#333';
+            this.width = 1000;
+            this.height = 1000;
+
+            particleSystem.createEmitter({
+                x: 32,
+                y: 128,
+                shape: 'ellipse',
+                width: 24,
+                height: 16,
+                duration: Infinity,
+                rate: 6,
+                particle: flame
+            });
+
+            particleSystem.createEmitter({
+                x: 96,
+                y: 128,
+                shape: 'ellipse',
+                width: 24,
+                height: 16,
+                duration: Infinity,
+                rate: 6,
+                particle: flame2
+            });
+
+            particleSystem.createEmitter({
+                x: 224,
+                y: 96,
+                shape: 'point',
+                duration: Infinity,
+                rate: 6,
+                particle: fireworks
+            });
+
+            particleSystem.createEmitter({
+                x: 320,
+                y: 32,
+                shape: 'ellipse',
+                width: 32,
+                height: 32,
+                duration: Infinity,
+                rate: 6,
+                particle: water
+            });
+
+            particleSystem.createEmitter({
+                x: 32,
+                y: 192,
+                shape: 'rectangle',
+                width: 128,
+                height: 32,
+                duration: Infinity,
+                rate: 2,
+                particle: snow
+            });
+
+            particleSystem.createEmitter({
+                x: 224,
+                y: 224,
+                shape: 'ellipse',
+                width: 24,
+                height: 24,
+                duration: Infinity,
+                rate: 6,
+                particle: meteor
+            });
+
+            particleSystem.createEmitter({
+                x: 352,
+                y: 224,
+                shape: 'ellipse',
+                width: 24,
+                height: 24,
+                duration: Infinity,
+                rate: 6,
+                particle: rainbow
+            });
+
+            particleSystem.createEmitter({
+                x: 512,
+                y: 128,
+                shape: 'ellipse',
+                width: 24,
+                height: 24,
+                duration: Infinity,
+                rate: 6,
+                particle: smoke
+            });
+
+            particleSystem.createEmitter({
+                x: 256,
+                y: 448,
+                shape: 'point',
+                duration: Infinity,
+                rate: 6,
+                particle: stars
+            });
+        },
+        'event render': function (ctx) {
+            ctx.fillStyle = 'black';
+            ctx.fillText('Particles:' + this.getSystem('particles').particles.length, 20, 20);
+        }
+    });
+
+    new Grape.Game({container: 'game'}).start(DemoScene);
+})();
 </script>
 
 </body>
