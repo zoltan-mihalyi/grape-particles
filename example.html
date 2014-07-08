@@ -26,18 +26,19 @@
                 gravityDirection: 270,
                 r: 255, //7
                 g: 40, //8
-                b: 0, //9,
-                a: 0.7
+                b: 10, //9,
+                a: 0.5,
+                composite: 'lighter'
             },
             {
                 offset: 15,
-                size: 4
+                size: [2,14]
             },
             {
                 offset: 70,
                 r: 255,
                 g: 165,
-                b: 0
+                b: 30
             },
             {
                 offset: 100,
@@ -49,10 +50,207 @@
             }
         ]);
 
-        var Fire = Grape.Class([Grape.Rectangle], {
-            init: function () {
-                this.width = 32;
-                this.height = 64;
+
+        var flame2 = Grape.Particles.particle('glow', [
+            {
+                offset: 0,
+                duration: [10, 30], //0 (1: max)
+                size: 0, //2
+                speed: [2, 4], //speedX:3, speedY:4
+                direction: [85, 95],
+                gravity: 0.05, //accX:5, accY:6
+                gravityDirection: 270,
+                r: 255, //7
+                g: 40, //8
+                b: 10, //9,
+                a: 0.7,
+                composite: 'lighter'
+            },
+            {
+                offset: 15,
+                size: [2,14]
+            },
+            {
+                offset: 70,
+                r: 255,
+                g: 165,
+                b: 30
+            },
+            {
+                offset: 100,
+                size: 1,
+                r: 90,
+                g: 90,
+                b: 90,
+                a: 0
+            }
+        ]);
+
+
+        var fireworks = Grape.Particles.particle('glow', [
+            {
+                offset: 0,
+                duration: [10, 30], //0 (1: max)
+                size: 5, //2
+                speed: [2, 4], //speedX:3, speedY:4
+                direction: [0, 360],
+                gravity: 0.05, //accX:5, accY:6
+                gravityDirection: 270,
+                r: [0, 255], //7
+                g: [0, 255], //8
+                b: [0, 255] //9
+            },
+            {
+                offset: 100,
+                a: 0,
+                size: 1
+            }
+        ]);
+
+        var waterfall = Grape.Particles.particle('glow', [
+            {
+                offset: 0,
+                duration: 30, //0 (1: max)
+                size: [0, 7], //2
+                speed: 2, //speedX:3, speedY:4
+                direction: [260, 280],
+                gravity: 0.05, //accX:5, accY:6
+                gravityDirection: 270,
+                r: 120, //7
+                g: 120, //8
+                b: 255,
+                a:0.1,
+                composite:'lighter'
+            },
+            {
+                offset: 80,
+                size: [0, 4],
+                a: 0.5
+            },
+            {
+                offset: 100,
+                a: 0.2
+            }
+        ]);
+
+        var snow = Grape.Particles.particle('circle', [
+            {
+                offset: 0,
+                duration: 30, //0 (1: max)
+                size: 2, //2
+                speed: 3, //speedX:3, speedY:4
+                direction: [270, 270],
+                gravity: 0.00, //accX:5, accY:6
+                gravityDirection: 270,
+                r: 255, //7
+                g: 255, //8
+                b: 255,
+                a:0.4
+            }
+        ]);
+
+        var meteor = Grape.Particles.particle('glow', [
+            {
+                offset: 0,
+                duration: 30, //0 (1: max)
+                size: [4,10], //2
+                speed: 1.6, //speedX:3, speedY:4
+                direction: 45,
+                gravity: 0.05, //accX:5, accY:6
+                gravityDirection: 45,
+                r:80,
+                g:170,
+                b:0,
+                a:1,
+                composite:'lighter'
+            },
+            {
+                offset: 20,
+                r: 100, //7
+                g: 150, //8
+                b: 255,
+                a:0.2
+            },
+            {
+                offset: 100,
+                a:0
+            }
+        ]);
+
+        var rainbow= Grape.Particles.particle('circle', [
+            {
+                offset: 0,
+                duration: 30,
+                size: [0,16],
+                speed:3.2,
+                direction: 45,
+                gravity:0.15,
+                gravityDirection:270,
+                r:255,
+                g:0,
+                b:0,
+                a:0.5,
+                composite:'lighter'
+            },
+            {
+                offset: 33,
+                r: 0,
+                g: 255,
+                b: 0
+            },
+            {
+                offset: 66,
+                r: 0,
+                g: 0,
+                b: 255
+            },
+            {
+                offset: 100,
+                r: 255,
+                g: 0,
+                b: 0
+            } ]);
+
+        var smoke= Grape.Particles.particle('glow', [
+            {
+                offset: 0,
+                size: [0,10],
+                duration:20,
+                speed:2.5,
+                direction: 70,
+                gravity:0.1,
+                gravityDirection:0,
+                r:190,
+                g:190,
+                b:190,
+                a:0.3
+            },{
+                offset:100,
+                a:0
+            }
+        ]);
+
+        var stars=Grape.Particles.particle('circle', [
+            {
+                offset:0,
+                duration:10,
+                size:0,
+                r:255,
+                g:255,
+                b:255,
+                speed:[4,8],
+                direction:[0,360]
+            },{
+                offset:100,
+                size:[1,6]
+            }
+        ]);
+
+        var particles = [flame, flame2, fireworks, waterfall, snow, meteor, rainbow, smoke, stars];
+
+        var Fire = Grape.Class([Grape.Position, Grape.GameObject], {
+            init: function (opts) {
+                this.particle = opts.particle;
             },
             'event add': function () {
                 this.emitter = this.getLayer().getSystem('particles').createEmitter({
@@ -62,8 +260,8 @@
                     width: 24,
                     height: 16,
                     duration: Infinity,
-                    rate: 15,
-                    particle: flame
+                    rate: 6,
+                    particle: this.particle
                 });
             },
             'event remove': function () {
@@ -71,7 +269,7 @@
             }
         });
 
-        var MouseFire = Grape.Class([Fire], {
+        var MouseFire = Grape.Class(Fire, {
             'global-event mouseMove': function (mouse) {
                 this.x = this.emitter.x = mouse.x;
                 this.y = this.emitter.y = mouse.y;
@@ -84,19 +282,22 @@
                 this.addSystem('particles', new Grape.Particles.ParticleSystem());
                 var row = 0;
                 var col = 0;
-                for (var i = 0; i < 8; i++) {
-                    this.add(new Fire({x: col * 128 + 64, y: row * 128 + 64}));
+                for (var i = 0; i < particles.length; i++) {
+                    this.add(new Fire({x: col * 128 + 64, y: row * 128 + 64, particle: particles[i]}));
                     col++;
                     if (col > 3) {
                         row++;
                         col = 0;
                     }
                 }
-                this.add(new MouseFire({x: 300, y: 200}));
+                this.add(new MouseFire({x: 300, y: 200, particle: flame2}));
+                this.backgroundColor = '#333';
+                this.width = 1000;
+                this.height = 1000;
             },
             'event render': function (ctx) {
                 ctx.fillStyle = 'black';
-                ctx.fillText('Particles:'+this.getSystem('particles').particles.length, 20, 20);
+                ctx.fillText('Particles:' + this.getSystem('particles').particles.length, 20, 20);
             }
         });
 

@@ -37,6 +37,14 @@
         }
     }
 
+    function pickValues(orig) {
+        var result = [];
+        for (var i = 0; i < orig.length; i++) {
+            result.push(pick(orig[i]));
+        }
+        return result;
+    }
+
     function createFirstStop(orig) {
         var stop = {};
         stop.offset = 0;
@@ -56,16 +64,16 @@
     function createFrame(intervals) {
         var fn = 'var values = this.values, percent =this[0]/this[1]*100;\n';
 
-        var sortedIntervals=[];
+        var sortedIntervals = [];
 
         for (var i in intervals) {
             sortedIntervals.push(intervals[i]);
         }
-        sortedIntervals=sortedIntervals.sort(function(e){
+        sortedIntervals = sortedIntervals.sort(function (e) {
             return e.to;
         });
 
-        for (var i=0;i<sortedIntervals.length;i++) {
+        for (var i = 0; i < sortedIntervals.length; i++) {
             var interval = sortedIntervals[i];
             var attrs = interval.attrs;
             fn += 'if(percent<=' + interval.from + '){\n';
@@ -126,20 +134,28 @@
         frame = createFrame(intervals);
 
         init = function (particle) {
-            particle.values = values;
+            particle.values = pickValues(values);
             particle[0] = 0;
             particle[1] = pick(stops[0].duration || 10) | 0;
 
             var speed = pick(firstStop.speed);
             var direction = pick(firstStop.direction);
-            particle[3] = -Math.cos(-direction / 180 * Math.PI) * speed;
-            particle[4] = Math.sin(-direction / 180 * Math.PI) * speed;
+            particle[3] = Math.cos(direction / 180 * Math.PI) * speed;
+            particle[4] = -Math.sin(direction / 180 * Math.PI) * speed;
 
 
             var gravity = pick(firstStop.gravity);
             var gravityDirection = pick(firstStop.gravityDirection);
-            particle[5] = -Math.cos(-gravityDirection / 180 * Math.PI) * gravity;
-            particle[6] = Math.sin(-gravityDirection / 180 * Math.PI) * gravity;
+            particle[5] = Math.cos(gravityDirection / 180 * Math.PI) * gravity;
+            particle[6] = -Math.sin(gravityDirection / 180 * Math.PI) * gravity;
+
+            particle[2] = pick(firstStop.size); //TODO dont pick 2 times
+            particle[7] = pick(firstStop.r);
+            particle[8] = pick(firstStop.g);
+            particle[9] = pick(firstStop.b);
+            particle[10] = pick(firstStop.a);
+
+            particle.composite = stops[0].composite || 'source-over';
         };
 
         return [init, frame, particleShapes[shape]];
@@ -149,12 +165,12 @@
 
     if (typeof ArrayBuffer === 'function') {
         createParticle = function () {
-            var arr = new ArrayBuffer(52); //4*13
+            var arr = new ArrayBuffer(56); //4*14
             return new Float32Array(arr);
         }
     } else {
         createParticle = function () {
-            return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         }
     }
 
@@ -203,7 +219,8 @@
 
 
                 emitter.delayed += emitter.rate;
-                while (emitter.delayed-- > 0) {
+                while (emitter.delayed > 0) {
+                    emitter.delayed--;
                     pos = emitterShapes[emitter.shape]();
                     particle = createParticle();
                     emitter.particle[0](particle); //init
@@ -235,10 +252,13 @@
         },
         'event render': function (ctx) {
             var particles = this.particles,
-                i, length, particle;
+                i, length, particle, color;
             for (i = 0, length = particles.length; i < length; i++) {
                 particle = particles[i];
-                particle.render(ctx);
+                ctx.globalCompositeOperation = particle.composite;
+                ctx.globalAlpha = particle[10];
+                color = '#' + toHex(particle[7]) + toHex(particle[8]) + toHex(particle[9]);
+                particle.render(ctx, particle[11], particle[12], particle[2], color);
             }
         }
     });
@@ -250,13 +270,25 @@
         return [Math.cos(angle) * r / 2 + 0.5, Math.sin(angle) * r / 2 + 0.5];
     });
 
-    addParticleShape('circle', function (ctx) {
+    addParticleShape('circle', function (ctx, x, y, size, color) {
         ctx.beginPath();
-        ctx.fillStyle = '#' + toHex(this[7]) + toHex(this[8]) + toHex(this[9]);
-        ctx.globalAlpha = this[10];
-        ctx.arc(this[11], this[12], this[2], 0, Math.PI * 2, false);
+        ctx.fillStyle = color;
+        ctx.arc(x, y, size / 2, 0, Math.PI * 2, false);
         ctx.fill();
     });
+
+
+    addParticleShape('glow', function (ctx, x, y, size, color) {
+        var gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+        gradient.addColorStop(0, color);
+        gradient.addColorStop(1, 'rgba(' + (this[7] | 0) + ',' + (this[8] | 0) + ',' + (this[9] | 0) + ',0)');
+
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.arc(x, y, size / 2, 0, Math.PI * 2, false);
+        ctx.fill();
+    });
+
 
     Grape.Particles = {
         ParticleSystem: ParticleSystem,
